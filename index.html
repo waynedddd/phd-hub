@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leon's PhD Hub</title>
+    <style>
+        :root {
+            --bg: #0f0f0f;
+            --card: #1a1a1a;
+            --border: #2a2a2a;
+            --text: #e0e0e0;
+            --text-dim: #888;
+            --accent: #4fc3f7;
+            --accent2: #81c784;
+            --accent3: #ffb74d;
+            --danger: #ef5350;
+            --tag-bg: #263238;
+            --purple: #ce93d8;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            padding: 20px;
+        }
+        .container { max-width: 1400px; margin: 0 auto; }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+        .header h1 { font-size: 28px; font-weight: 600; }
+        .header .subtitle { color: var(--text-dim); font-size: 14px; margin-top: 4px; }
+        .last-updated { color: var(--text-dim); font-size: 12px; }
+        .nav-tabs { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
+        .nav-tab { padding: 8px 16px; border-radius: 8px; cursor: pointer; font-size: 14px; background: var(--card); border: 1px solid var(--border); color: var(--text-dim); transition: all 0.2s; }
+        .nav-tab:hover { border-color: var(--accent); color: var(--accent); }
+        .nav-tab.active { background: var(--accent); color: #000; border-color: var(--accent); font-weight: 600; }
+        .section { display: none; }
+        .section.active { display: block; }
+        .stats-bar { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 24px; }
+        .stat-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 16px; }
+        .stat-card .label { font-size: 12px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.5px; }
+        .stat-card .value { font-size: 24px; font-weight: 700; margin-top: 4px; }
+        .stat-card .value.blue { color: var(--accent); }
+        .stat-card .value.green { color: var(--accent2); }
+        .stat-card .value.orange { color: var(--accent3); }
+        .stat-card .value.red { color: var(--danger); }
+        h2.section-title { font-size: 18px; margin: 24px 0 16px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+        .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 12px; }
+        .card:hover { border-color: var(--accent); }
+        .card h3 { font-size: 15px; margin-bottom: 8px; }
+        .card p, .card li { font-size: 13px; color: var(--text-dim); line-height: 1.7; }
+        .card ul { padding-left: 16px; }
+        .sup-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); gap: 16px; }
+        .sup-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; transition: border-color 0.2s; }
+        .sup-card:hover { border-color: var(--accent); }
+        .sup-card .sup-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
+        .sup-card .name { font-size: 16px; font-weight: 600; }
+        .sup-card .name-cn { font-size: 13px; color: var(--text-dim); }
+        .sup-card .school { font-size: 12px; color: var(--accent); margin-top: 2px; }
+        .sup-card .stars { color: var(--accent3); font-size: 12px; }
+        .sup-card .direction { font-size: 13px; color: var(--text-dim); margin-bottom: 8px; }
+        .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+        .tag { font-size: 11px; padding: 3px 8px; border-radius: 4px; background: var(--tag-bg); color: var(--accent); }
+        .tag.green { color: var(--accent2); }
+        .tag.orange { color: var(--accent3); }
+        .tag.red { color: var(--danger); }
+        .tag.purple { color: var(--purple); }
+        .status-badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+        .status-badge.sent { background: #1b5e20; color: #81c784; }
+        .status-badge.replied { background: #004d40; color: #80cbc4; }
+        .status-badge.drafted { background: #e65100; color: #ffb74d; }
+        .status-badge.pending { background: #263238; color: #90a4ae; }
+        .status-badge.retained { background: #0d47a1; color: #64b5f6; }
+        .status-badge.excluded { background: #3e2723; color: #a1887f; }
+        .paper-item { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px; margin-bottom: 8px; }
+        .paper-item:hover { border-color: var(--accent); }
+        .paper-item .paper-title { font-size: 14px; font-weight: 500; }
+        .paper-item .paper-meta { font-size: 12px; color: var(--text-dim); margin-top: 4px; }
+        .paper-item a { color: var(--accent); text-decoration: none; }
+        .paper-item a:hover { text-decoration: underline; }
+        .timeline-item { display: flex; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--border); }
+        .timeline-date { min-width: 100px; font-size: 13px; color: var(--accent3); font-weight: 600; }
+        .timeline-content { font-size: 14px; }
+        .timeline-item.urgent .timeline-date { color: var(--danger); }
+        .filter-bar { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+        .filter-btn { padding: 6px 12px; border-radius: 6px; font-size: 12px; cursor: pointer; background: var(--card); border: 1px solid var(--border); color: var(--text-dim); transition: all 0.2s; }
+        .filter-btn:hover { border-color: var(--accent); color: var(--accent); }
+        .filter-btn.active { background: var(--accent); color: #000; border-color: var(--accent); }
+        .key-point { padding: 12px 16px; background: var(--card); border-left: 3px solid var(--accent); border-radius: 0 8px 8px 0; margin-bottom: 10px; font-size: 13px; }
+        .key-point.warning { border-left-color: var(--accent3); }
+        .key-point.success { border-left-color: var(--accent2); }
+        .key-point.danger { border-left-color: var(--danger); }
+        .papers-in-card { margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); }
+        .papers-in-card a { color: var(--accent); font-size: 12px; text-decoration: none; display: block; margin-top: 4px; }
+        .papers-in-card a:hover { text-decoration: underline; }
+        table { width: 100%; border-collapse: collapse; font-size: 13px; }
+        th, td { padding: 8px 12px; border-bottom: 1px solid var(--border); text-align: left; }
+        th { color: var(--text-dim); font-weight: 600; font-size: 12px; text-transform: uppercase; }
+        .collapsible { cursor: pointer; }
+        .collapsible::after { content: ' ▼'; font-size: 10px; }
+        .collapsible.collapsed::after { content: ' ▶'; }
+        .collapse-content { display: block; }
+        .collapse-content.hidden { display: none; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div>
+            <h1>🎓 Leon's PhD Hub</h1>
+            <div class="subtitle">博士申请全流程追踪 · 导师研究 · 学术能力建设 · 申请经验</div>
+        </div>
+        <div class="last-updated">最后更新: 2026-05-19</div>
+    </div>
+    
+    <div class="nav-tabs">
+        <div class="nav-tab active" data-tab="strategy">🎯 策略总纲</div>
+        <div class="nav-tab" data-tab="supervisors">👨‍🏫 导师库</div>
+        <div class="nav-tab" data-tab="emails">✉️ 套磁进展</div>
+        <div class="nav-tab" data-tab="decisions">🔑 关键决策</div>
+        <div class="nav-tab" data-tab="papers">📄 论文阅读</div>
+        <div class="nav-tab" data-tab="timeline">📅 时间线</div>
+        <div class="nav-tab" data-tab="learning">📚 学习路径</div>
+        <div class="nav-tab" data-tab="experience">💡 申请经验</div>
+    </div>
+
+    <!-- ===== 1. STRATEGY ===== -->
+    <div class="section active" id="strategy">
+        <div class="stats-bar">
+            <div class="stat-card"><div class="label">候选导师</div><div class="value blue">28+</div></div>
+            <div class="stat-card"><div class="label">已发套磁</div><div class="value green">4</div></div>
+            <div class="stat-card"><div class="label">已回复</div><div class="value orange">1</div></div>
+            <div class="stat-card"><div class="label">待评估</div><div class="value red">13</div></div>
+        </div>
+
+        <h2 class="section-title">核心定位</h2>
+        <div class="card">
+            <h3>Leon的两条腿</h3>
+            <ul>
+                <li><strong>学术线：</strong>广告学（本科）+ 媒介素养教育/传媒教育学（硕士，中传，导师张洁）→ 数字媒体、计算传播、媒介素养、批判性思维、假新闻/信息素养、跨文化传播</li>
+                <li><strong>职业线：</strong>品牌战略/营销15年（Landor→德勤→奥美→腾讯云）→ 品牌、营销、CSR、数字营销</li>
+                <li><strong>匹配逻辑：</strong>两者交集或任一匹配均可，只要能写出结合两者的研究方向</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3>申请逻辑（5/16更新）</h3>
+            <div class="key-point">先做研究方向 → 再找老师（不是反过来）</div>
+            <ul>
+                <li>先做几个有价值的research proposal方向</li>
+                <li>再按方向去匹配合适的导师</li>
+                <li>不要因为导师方向不完全匹配就排除</li>
+                <li>沈浩走张洁老师引荐路线，其他正常套磁</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3>资助策略结论</h3>
+            <table>
+                <tr><th>地区</th><th>可行性</th><th>说明</th></tr>
+                <tr><td>🇭🇰 港校 HKPFS</td><td>⭐⭐⭐⭐⭐</td><td>无年龄限制 + 基本studentship几乎保底</td></tr>
+                <tr><td>🇸🇬 新加坡</td><td>⭐⭐⭐⭐</td><td>录取≈资助</td></tr>
+                <tr><td>🇦🇺 墨尔本 RTP</td><td>⭐⭐⭐⭐</td><td>全免+AUD ~35,000/年</td></tr>
+                <tr><td>🇬🇧 英国</td><td>⭐⭐</td><td>Gates Cambridge等概率低，当冲刺</td></tr>
+                <tr><td>🇨🇳 CSC</td><td>❌</td><td>年龄超限35岁（Leon已40）</td></tr>
+            </table>
+        </div>
+
+        <div class="card">
+            <h3>职业目标</h3>
+            <ul>
+                <li>博士毕业后 → <strong>高校任教</strong></li>
+                <li>国内985/211年龄门槛（35岁）不可能</li>
+                <li>最优路径：港校/新加坡读博 → 留港/澳门/地方一本任教</li>
+                <li>商学院 Practice Professor 是行业经验的最佳出口</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3>新规则（5/19）</h3>
+            <div class="key-point warning">不被研究方法局限！沈浩老师从传播学硕士→博士期间学量化/实验。方法可以在博士期间学，不是排除理由。</div>
+        </div>
+    </div>
+
+    <!-- ===== 2. SUPERVISORS ===== -->
+    <div class="section" id="supervisors">
+        <div class="filter-bar">
+            <div class="filter-btn active" data-filter="all">全部</div>
+            <div class="filter-btn" data-filter="hk">🇭🇰 香港</div>
+            <div class="filter-btn" data-filter="sg">🇸🇬 新加坡</div>
+            <div class="filter-btn" data-filter="uk">🇬🇧 英国</div>
+            <div class="filter-btn" data-filter="au">🇦🇺 澳洲</div>
+            <div class="filter-btn" data-filter="eu">🇪🇺 欧洲</div>
+            <div class="filter-btn" data-filter="cn">🇨🇳 国内</div>
+        </div>
+        <div class="sup-grid" id="sup-grid"></div>
+    </div>
+
+    <!-- ===== 3. EMAILS ===== -->
+    <div class="section" id="emails">
+        <h2 class="section-title">已发送套磁信</h2>
+        <table>
+            <tr><th>#</th><th>导师</th><th>学校</th><th>发送日期</th><th>Follow-up</th><th>状态</th><th>回复</th></tr>
+            <tr><td>1</td><td>Tom McDonald</td><td>HKU</td><td>4/28</td><td>5/11已发，5/25第二轮</td><td><span class="status-badge sent">待回复</span></td><td>未回</td></tr>
+            <tr><td>2</td><td>Lingrui Zhou</td><td>HKU</td><td>4/30</td><td>—</td><td><span class="status-badge replied">已回复</span></td><td>中性偏友好：建议申2027，建议联系Jayson Jia</td></tr>
+            <tr><td>3</td><td>Shintaro Okazaki</td><td>KCL</td><td>5/6</td><td>5/20</td><td><span class="status-badge sent">待follow-up</span></td><td>未回</td></tr>
+            <tr><td>4</td><td>Kirk Plangger</td><td>KCL</td><td>5/7</td><td>5/21</td><td><span class="status-badge sent">待follow-up</span></td><td>未回</td></tr>
+        </table>
+
+        <h2 class="section-title">套磁信写作标准（v2）</h2>
+        <div class="card">
+            <h3>四个必答问题</h3>
+            <ol style="padding-left:16px;font-size:13px;color:var(--text-dim);">
+                <li><strong>为什么在这个时间读博？</strong> — 问题驱动，不是困境驱动。15年从业积累了问题，学术研究才能回答</li>
+                <li><strong>读你博士的独特优势？</strong> — 谦逊姿态："我有观察但需要训练来回答"</li>
+                <li><strong>研究课题及学术价值？</strong> — 行业观察→文献对话→理论gap→RQ</li>
+                <li><strong>学术潜力的证据？</strong> — 引用文献、展示逻辑链、从业观察的理论含义</li>
+            </ol>
+            <div class="key-point" style="margin-top:12px;">核心：完成"身份转译"——从品牌策略从业者 → 潜在研究者。如果只展示经验而不回答这四个问题，导师会处于观望状态。</div>
+        </div>
+
+        <div class="card">
+            <h3>导师读信时的内心活动</h3>
+            <ul>
+                <li>✅ "经验很丰富" → 简介就能做到</li>
+                <li>❓ "能做research吗？" → Q4回答</li>
+                <li>❓ "是为了学术career还是镀金？" → Q1回答</li>
+                <li>❓ "具体研究问题有学术味吗？" → Q3回答</li>
+                <li>❓ "会不会不可教（uncoachable）？" → Q2的姿态回答</li>
+            </ul>
+        </div>
+
+        <h2 class="section-title">待写套磁信</h2>
+        <table>
+            <tr><th>优先级</th><th>导师</th><th>学校</th><th>备注</th></tr>
+            <tr><td>⭐⭐⭐⭐⭐</td><td>Richard Gyrd-Jones</td><td>CBS</td><td>品牌意义+多利益相关者</td></tr>
+            <tr><td>⭐⭐⭐⭐⭐</td><td>Wonsun Shin</td><td>墨尔本</td><td>广告+CSR+危机传播</td></tr>
+            <tr><td>⭐⭐⭐⭐</td><td>Lee Edwards</td><td>LSE</td><td>推广产业社会学</td></tr>
+            <tr><td>⭐⭐⭐⭐</td><td>Hugh Wilson</td><td>华威</td><td>业内转学术成功案例</td></tr>
+            <tr><td>⭐⭐⭐⭐</td><td>Andrew Stephen</td><td>牛津</td><td>冲刺</td></tr>
+            <tr><td>⭐⭐⭐⭐</td><td>Sarah Glozer</td><td>巴斯</td><td>CSR传播+漂绿批判</td></tr>
+            <tr><td>⭐⭐⭐⭐</td><td>Nicholas Carah</td><td>UQ</td><td>算法品牌文化</td></tr>
+            <tr><td>⭐⭐⭐⭐</td><td>Chen Lou (陈露)</td><td>NTU</td><td>网红营销+品牌传播</td></tr>
+        </table>
+
+        <h2 class="section-title">不需要套磁（走正式申请）</h2>
+        <div class="key-point success">CUHK传播学院：Rim, Christine Huang, Jian Lin 等 — 走统一申请流程</div>
+    </div>
+
+    <!-- ===== 4. DECISIONS ===== -->
+    <div class="section" id="decisions">
+        <h2 class="section-title">关键决策记录</h2>
+        
+        <div class="card">
+            <h3>张洁老师引荐路线 — 沈浩（CUHK商学院）</h3>
+            <ul>
+                <li>张洁老师（Leon硕导的同学）可引荐沈浩</li>
+                <li>需要先准备好：研究课题 + 简历</li>
+                <li>商学院PhD需要GMAT/GRE（新增要求）</li>
+                <li>目标2027/28入学（2026年9月开放申请）</li>
+                <li>沈浩背景：传播学硕士→HKUST Marketing PhD（与Leon路径相似）</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3>张洁老师的观点（参考但不作为筛选依据）</h3>
+            <ul>
+                <li>很理想化的学术路线思维</li>
+                <li>"只要研究做得好就会有机会"</li>
+                <li>有价值的视角：不需要先排除相关性低的老师</li>
+                <li>沈浩本身就是传播学硕士转量化营销PhD的例子</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3>Lingrui Zhou回复分析（5/13）</h3>
+            <ul>
+                <li>中性偏友好——不是拒绝，但也没有强烈兴趣</li>
+                <li>建议申2027年入学</li>
+                <li>不确定是否招生（委婉）</li>
+                <li>鼓励申请HKU PhD项目</li>
+                <li>建议联系Jayson Jia</li>
+                <li><strong>结论：</strong>需要更强的研究课题来激发兴趣</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3>为什么导师没给积极信号？（5/18分析结论）</h3>
+            <ul>
+                <li>英国导师约Zoom = 英国导师招生权大，可直接招</li>
+                <li>港校是委员会制 = 不同逻辑，单个老师不能直接决定</li>
+                <li>核心问题不是方法/背景，而是：<strong>信里没有展示学术潜力</strong></li>
+                <li>→ 必须回答四个核心问题（见套磁标准v2）</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3>提前联系导师——全球通用</h3>
+            <table>
+                <tr><th>地区</th><th>重要性</th><th>说明</th></tr>
+                <tr><td>🇬🇧 英国</td><td>⭐⭐⭐⭐⭐ 必须</td><td>导师招生权大，很多要求先获同意</td></tr>
+                <tr><td>🇦🇺 澳洲</td><td>⭐⭐⭐⭐⭐ 必须</td><td>导师先同意→再走院系</td></tr>
+                <tr><td>🇸🇬 新加坡</td><td>⭐⭐⭐⭐ 强烈推荐</td><td>委员会审核，但导师支持=巨大加分</td></tr>
+                <tr><td>🇭🇰 香港</td><td>⭐⭐⭐⭐ 强烈推荐</td><td>统一流程，但导师认可=面试后pick你</td></tr>
+                <tr><td>🇺🇸 美国</td><td>⭐⭐⭐ 有帮助</td><td>委员会制为主</td></tr>
+            </table>
+            <div class="key-point success" style="margin-top:12px;">结论：所有地区都可以现在开始联系，不需要等正式申请时间。</div>
+        </div>
+
+        <div class="card">
+            <h3>国内清北候选（长名单）</h3>
+            <p><strong>北大光华：</strong>江明华⭐⭐⭐⭐⭐、彭泗清⭐⭐⭐⭐⭐、符国群⭐⭐⭐⭐⭐</p>
+            <p><strong>清华经管：</strong>于春玲⭐⭐⭐⭐、胡左浩⭐⭐⭐⭐</p>
+            <p><strong>新生代（学术高峰期）：</strong>刘茄（清华）⭐⭐⭐⭐⭐、刘文静（清华）⭐⭐⭐⭐⭐、盖嘉（北大）⭐⭐⭐⭐⭐、黄靓（清华）⭐⭐⭐⭐、王锐（北大）⭐⭐⭐⭐</p>
+            <p style="color:var(--accent3);margin-top:8px;">注意：国内PhD国际顶刊发表量不如港校/海外，但清北招牌+行业人脉是独特优势</p>
+        </div>
+    </div>
+
+    <!-- ===== 5. PAPERS ===== -->
+    <div class="section" id="papers">
+        <h2 class="section-title">沈浩（Hao Shen）核心论文 — 必读</h2>
+        <div id="shen-papers"></div>
+        
+        <h2 class="section-title">沈浩研究的理论基础 — 应读</h2>
+        <div id="theory-papers"></div>
+        
+        <h2 class="section-title">AI+消费者行为前沿</h2>
+        <div id="frontier-papers"></div>
+
+        <h2 class="section-title">其他导师核心论文</h2>
+        <div id="other-papers"></div>
+    </div>
+
+    <!-- ===== 6. TIMELINE ===== -->
+    <div class="section" id="timeline">
+        <h2 class="section-title">近期行动（紧急）</h2>
+        <div id="urgent-timeline"></div>
+        <h2 class="section-title">申请关键节点</h2>
+        <div id="main-timeline"></div>
+    </div>
+
+    <!-- ===== 7. LEARNING ===== -->
+    <div class="section" id="learning">
+        <h2 class="section-title">沈浩学术地图</h2>
+        <div class="card">
+            <h3>五条研究主线（按时间发展）</h3>
+            <ul>
+                <li><strong>主线1（2008-12）：</strong>程序性知识与自动化行为 — 学术起点</li>
+                <li><strong>主线2（2008-20）：</strong>情绪与消费者行为 — 贯穿整个生涯</li>
+                <li><strong>主线3（2012-18）：</strong>感官营销/具身认知 — iPad论文是关键转折</li>
+                <li><strong>主线4（2018-now）：</strong>传播模式与品牌连接 — "说"vs"写"影响品牌关系</li>
+                <li><strong>主线5（2024-now）：</strong>🔥 AI/Chatbot与消费者行为 — 最新最活跃</li>
+            </ul>
+            <div class="key-point success" style="margin-top:12px;">与Leon最强交集：主线4+5 → AI传播界面 × 品牌-消费者关系</div>
+        </div>
+
+        <div class="card">
+            <h3>建议阅读顺序</h3>
+            <p><strong>第一轮（核心，1-2周）：</strong></p>
+            <ul>
+                <li>Yu et al. (2024) Chatbot论文 ⭐</li>
+                <li>Shen & Sengupta (2018) WOM论文 ⭐</li>
+                <li>Shen, Zhang & Krishna (2016) iPad论文</li>
+                <li>Qi & Shen (2025) Pink Product论文</li>
+            </ul>
+            <p style="margin-top:8px;"><strong>第二轮（理论基础，1-2周）：</strong></p>
+            <ul>
+                <li>Crolic et al. (2022) Blame the Bot</li>
+                <li>Puntoni et al. (2021) Consumers and AI</li>
+                <li>Nass & Moon (2000) CASA理论</li>
+                <li>Escalas & Bettman (2003) Self-Brand Connection</li>
+            </ul>
+        </div>
+
+        <h2 class="section-title">学术基础能力</h2>
+        <div class="card">
+            <h3>如何读学术论文</h3>
+            <p>快速阅读法：Abstract → Conclusion → Method → Results → Introduction → Discussion</p>
+        </div>
+        <div class="card">
+            <h3>Research Proposal结构</h3>
+            <p>Introduction → Literature Review → Research Gap → Research Questions → Methodology → Expected Contribution</p>
+        </div>
+        <div class="card">
+            <h3>套磁信的身份转译</h3>
+            <p>从业观察 → 文献连接 → 理论Gap → 研究问题 → 展示学术思维萌芽（不是给答案）</p>
+        </div>
+
+        <h2 class="section-title">待完成准备</h2>
+        <table>
+            <tr><th>项目</th><th>状态</th><th>优先级</th></tr>
+            <tr><td>雅思（目标7.0+）</td><td>未报名</td><td>⭐⭐⭐⭐⭐</td></tr>
+            <tr><td>GMAT/GRE（商学院需要）</td><td>未开始</td><td>⭐⭐⭐⭐</td></tr>
+            <tr><td>Research Proposal</td><td>未开始</td><td>⭐⭐⭐⭐⭐</td></tr>
+            <tr><td>学术版英文简历</td><td>未开始</td><td>⭐⭐⭐⭐</td></tr>
+            <tr><td>联系张洁老师（推荐信）</td><td>待做</td><td>⭐⭐⭐⭐</td></tr>
+            <tr><td>确定客户推荐人</td><td>待做</td><td>⭐⭐⭐</td></tr>
+        </table>
+    </div>
+
+    <!-- ===== 8. EXPERIENCE ===== -->
+    <div class="section" id="experience">
+        <h2 class="section-title">申请经验（持续更新）</h2>
+        <div class="key-point">这个板块会通过每日自动搜索持续补充最新的博士申请经验和技巧。</div>
+        
+        <div class="card">
+            <h3>工作经验者申博的核心挑战</h3>
+            <ul>
+                <li>导师最担心：completion risk（会不会半途而废）</li>
+                <li>需要证明：学术潜力（不是实务能力）</li>
+                <li>年龄不是问题，motivation才是</li>
+                <li>方法可以学，vision和问题意识更重要</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3>英国PhD申请特点</h3>
+            <ul>
+                <li>全年可联系导师，无固定时间限制</li>
+                <li>导师招生权大，获得导师同意=基本录取</li>
+                <li>约Zoom是积极信号</li>
+                <li>奖学金竞争激烈（Gates Cambridge等概率低）</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3>港校PhD申请特点</h3>
+            <ul>
+                <li>委员会制录取，单个导师不能直接决定</li>
+                <li>但提前获得导师认可=面试后被pick</li>
+                <li>HKPFS无年龄限制，9月开放，12/1截止</li>
+                <li>基本studentship几乎保底</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3>套磁信常见错误（Leon踩过的坑）</h3>
+            <ul>
+                <li>❌ 只展示经验不展示学术思维 → 导师观望</li>
+                <li>❌ 没有引用导师具体论文 → 显得没做功课</li>
+                <li>❌ 研究问题像商业问题不像学术问题</li>
+                <li>❌ 过度自信（uncoachable信号）</li>
+                <li>✅ 正确姿态：我有观察+我需要训练来解答</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+// === SUPERVISOR DATA ===
+const supervisors = [
+    { name:"Hyejoon Rim", nameCn:"", school:"CUHK", dept:"新闻与传播学院", region:"hk", stars:5, direction:"CSR传播、品牌社会倡导(CSA)、企业公关", tags:["CSR","品牌","传播"], status:"drafted", statusText:"套磁信已写（走正式申请）", url:"", match:"CSA蓝海，需业界视角。Leon品牌+CSR完美匹配", papers:[] },
+    { name:"Christine Huang", nameCn:"黄懿慧", school:"CUHK", dept:"新闻与传播学院", region:"hk", stars:4, direction:"战略传播、企业传播、数字时代公关转型", tags:["战略传播","企业传播","华人"], status:"drafted", statusText:"套磁信已写（走正式申请）", url:"", match:"资深教授，理解业转学术", papers:[] },
+    { name:"Tom McDonald", nameCn:"汤浩然", school:"HKU", dept:"社会学系", region:"hk", stars:4, direction:"数字人类学、中国互联网、消费文化、Web3", tags:["数字人类学","质性方法","消费文化"], status:"sent", statusText:"已发 4/28，等待回复", url:"", match:"质性方法友好，'业内人民族志'独特", papers:[] },
+    { name:"Lingrui Zhou", nameCn:"", school:"HKU", dept:"商学院Marketing", region:"hk", stars:5, direction:"品牌-消费者关系", tags:["品牌","AP"], status:"replied", statusText:"已回复 5/13", url:"", match:"方向最对口。建议申2027，联系Jayson Jia", papers:[] },
+    { name:"Echo Wen Wan", nameCn:"万雯", school:"HKU", dept:"商学院Marketing", region:"hk", stars:4, direction:"品牌拟人化、消费心理、practical relevance", tags:["品牌","消费心理","华人"], status:"retained", statusText:"保留", url:"https://www.hkubs.hku.hk/people/echo-wen-wan/", match:"JCR editorial呼吁practical relevance，理念匹配", papers:[{title:"Practical Relevance in Consumer Research",year:2024,journal:"JCR",url:"https://academic.oup.com/jcr/article-abstract/51/2/428/7638831"}] },
+    { name:"Jayson Shi Jia", nameCn:"贾世煜", school:"HKU", dept:"商学院Marketing", region:"hk", stars:4, direction:"数字营销内容、AI信息加工、计算社科", tags:["数字营销","AI","华人","计算方法"], status:"retained", statusText:"保留（Lingrui推荐）", url:"https://www.hkubs.hku.hk/people/jayson-shi-jia/", match:"2025 JMR品牌社媒内容研究与Leon腾讯云经验直接对接", papers:[{title:"When Words Meet Visuals: Content Composition Drives Social Media Engagement",year:2025,journal:"JMR",url:"https://journals.sagepub.com/doi/10.1177/00222437251373042"},{title:"The Effect of Slow Motion Video on Consumer Inference",year:2021,journal:"JMR",url:"https://journals.sagepub.com/doi/abs/10.1177/00222437211025054"},{title:"Population Flow Drives COVID-19 Distribution in China",year:2020,journal:"Nature",url:"https://www.nature.com/articles/s41586-020-2284-y"}] },
+    { name:"Tak Zhongqiang Huang", nameCn:"黄中强", school:"HKU", dept:"商学院Marketing", region:"hk", stars:3, direction:"情绪与消费决策", tags:["消费心理","华人","实验"], status:"retained", statusText:"保留（5/19恢复）", url:"https://www.hkubs.hku.hk/people/tak-zhongqiang-huang/", match:"方法可学，不因实验方法排除", papers:[] },
+    { name:"Junhong Chu", nameCn:"朱俊虹", school:"HKU", dept:"商学院Marketing", region:"hk", stars:3, direction:"平台/大数据/社交网络营销", tags:["平台","大数据","华人"], status:"pending", statusText:"待评估 #4", url:"https://www.hkubs.hku.hk/people/junhong-chu/", match:"待评估", papers:[] },
+    { name:"Hao Shen", nameCn:"沈浩", school:"CUHK", dept:"商学院Marketing", region:"hk", stars:5, direction:"感官营销、AI/Chatbot、传播模式与品牌连接", tags:["AI","Chatbot","华人","张洁引荐"], status:"retained", statusText:"张洁引荐路线", url:"https://www.bschool.cuhk.edu.hk/staff/shen-hao/", match:"路径相似(传播硕士→Marketing PhD)，AI方向最新最活跃", papers:[{title:"The Rise of Chatbots: Effect of Chatbot Agents on Consumers' Responses to Request Rejection",year:2024,journal:"JCP",url:"https://myscp.onlinelibrary.wiley.com/doi/abs/10.1002/jcpy.1330"},{title:"Word of Mouth vs Word of Mouse: Speaking Connects You to Brand More",year:2018,journal:"JCR",url:"https://mark.hkust.edu.hk/files/staff/Jaideep/Jaideep-JCR-2018.pdf"},{title:"Computer Interfaces and the Direct-Touch Effect",year:2016,journal:"JMR",url:"https://journals.sagepub.com/doi/abs/10.1509/jmr.14.0563"}] },
+    { name:"Xinyu Cao", nameCn:"曹馨宇", school:"CUHK", dept:"商学院Marketing", region:"hk", stars:4, direction:"搜索广告/社交媒体广告", tags:["数字广告","华人"], status:"pending", statusText:"待评估 #6", url:"https://www.bschool.cuhk.edu.hk/staff/cao-xinyu/", match:"待评估", papers:[] },
+    { name:"Lisa C. Wan", nameCn:"尹振英", school:"CUHK", dept:"商学院Marketing", region:"hk", stars:4, direction:"品牌危机/服务营销/跨文化", tags:["品牌危机","跨文化","华人"], status:"pending", statusText:"待评估 #7", url:"https://www.bschool.cuhk.edu.hk/staff/wan-lisa-c/", match:"待评估", papers:[] },
+    { name:"Song Lin", nameCn:"林松", school:"HKUST", dept:"商学院Marketing", region:"hk", stars:4, direction:"广告/生成式AI/定价", tags:["广告","AI","华人"], status:"pending", statusText:"待评估 #8", url:"https://mark.hkust.edu.hk/faculty-and-staff/directory/79", match:"待评估", papers:[] },
+    { name:"Jiewen Hong", nameCn:"洪洁雯", school:"HKUST", dept:"商学院Marketing", region:"hk", stars:4, direction:"可持续消费/系主任", tags:["可持续","华人","系主任"], status:"pending", statusText:"待评估 #9", url:"https://mark.hkust.edu.hk/faculty-and-staff/directory/86", match:"待评估", papers:[] },
+    { name:"Rongrong Zhou", nameCn:"周蓉蓉", school:"HKUST", dept:"商学院Marketing", region:"hk", stars:3, direction:"消费者判断/动机/视觉", tags:["消费心理","华人"], status:"pending", statusText:"待评估 #10", url:"https://mark.hkust.edu.hk/faculty-and-staff/directory/83", match:"待评估", papers:[] },
+    { name:"Ying Zhao", nameCn:"赵颖", school:"HKUST", dept:"商学院Marketing", region:"hk", stars:3, direction:"竞争营销策略", tags:["营销策略","华人"], status:"pending", statusText:"待评估 #11", url:"https://mark.hkust.edu.hk/faculty-and-staff/directory/84", match:"待评估", papers:[] },
+    { name:"Xiuping Li", nameCn:"李秀萍", school:"NUS", dept:"商学院Marketing", region:"sg", stars:5, direction:"消费者行为/品牌管理/品牌社会角色", tags:["品牌","消费者行为","华人"], status:"pending", statusText:"待评估 #12", url:"https://discovery.nus.edu.sg/1277-xiuping-li", match:"品牌如何被赋予社会意义，直接对口", papers:[] },
+    { name:"Yan Zhang", nameCn:"张妍", school:"NUS", dept:"商学院Marketing", region:"sg", stars:3, direction:"消费者决策/数字营销", tags:["数字营销","华人"], status:"pending", statusText:"待评估 #13", url:"https://discovery.nus.edu.sg/1968-zhang-yan", match:"待评估", papers:[] },
+    { name:"Sharon Ng", nameCn:"黄淑玲", school:"NTU", dept:"Nanyang商学院", region:"sg", stars:3, direction:"跨文化品牌/品牌认知", tags:["品牌","跨文化","华人"], status:"pending", statusText:"待评估 #14", url:"https://dr.ntu.edu.sg/entities/person/Sharon-Ng", match:"待评估", papers:[] },
+    { name:"Kuangjie Zhang", nameCn:"张宽杰", school:"NTU", dept:"Nanyang商学院", region:"sg", stars:3, direction:"品牌感知/定价/数字认知", tags:["品牌","华人"], status:"pending", statusText:"待评估 #15", url:"https://dr.ntu.edu.sg/entities/person/Zhang-Kuangjie", match:"待评估", papers:[] },
+    { name:"Soo Kim", nameCn:"", school:"NTU", dept:"Nanyang商学院", region:"sg", stars:3, direction:"符号消费/自我威胁/社会影响", tags:["消费心理"], status:"pending", statusText:"待评估 #16", url:"https://dr.ntu.edu.sg/entities/person/Soo-Kim", match:"待评估", papers:[] },
+    { name:"Hannah Chang", nameCn:"", school:"SMU", dept:"商学院", region:"sg", stars:4, direction:"AI+消费者行为/PhD项目主任", tags:["AI","消费者行为","华人","PhD主任"], status:"pending", statusText:"待评估 #17", url:"https://faculty.smu.edu.sg/profile/hannah-h-chang-2236", match:"待评估", papers:[] },
+    { name:"Kapil Tuli", nameCn:"", school:"SMU", dept:"商学院", region:"sg", stars:5, direction:"品牌战略+品牌价值+营销-金融界面", tags:["品牌战略","品牌价值"], status:"pending", statusText:"待联系", url:"", match:"最正统品牌战略研究，全奖", papers:[] },
+    { name:"Lee Edwards", nameCn:"", school:"LSE", dept:"传媒系", region:"uk", stars:5, direction:"推广产业社会学、品牌社会学", tags:["品牌","社会学","产业研究"], status:"pending", statusText:"待联系", url:"", match:"Leon的15年=她的研究对象", papers:[] },
+    { name:"Andrew Stephen", nameCn:"", school:"牛津", dept:"Saïd商学院", region:"uk", stars:5, direction:"数字营销+AI, FOMI创始人", tags:["数字营销","AI","商学院"], status:"pending", statusText:"待联系（冲刺）", url:"", match:"FOMI创始人，顶级商学院", papers:[] },
+    { name:"Hugh Wilson", nameCn:"", school:"华威", dept:"WBS商学院", region:"uk", stars:5, direction:"品牌目的+可持续消费", tags:["品牌","可持续"], status:"pending", statusText:"待联系", url:"", match:"他自己IBM转学术，理解Leon", papers:[] },
+    { name:"Shintaro Okazaki", nameCn:"", school:"KCL", dept:"商学院", region:"uk", stars:4, direction:"数字营销/移动营销/AI共情", tags:["数字营销","AI","跨文化"], status:"sent", statusText:"已发5/6，5/20 follow-up", url:"", match:"", papers:[] },
+    { name:"Kirk Plangger", nameCn:"", school:"KCL", dept:"商学院", region:"uk", stars:4, direction:"数字营销/AI营销", tags:["数字营销","AI"], status:"sent", statusText:"已发5/7，5/21 follow-up", url:"", match:"", papers:[] },
+    { name:"Wonsun Shin", nameCn:"", school:"墨尔本", dept:"传媒", region:"au", stars:5, direction:"广告+CSR+危机传播+战略传播+新媒体", tags:["广告","CSR","危机传播"], status:"pending", statusText:"待联系（6-7月）", url:"", match:"覆盖面极广，RTP全奖", papers:[] },
+    { name:"Richard Gyrd-Jones", nameCn:"", school:"CBS", dept:"商学院", region:"eu", stars:5, direction:"品牌意义+多利益相关者品牌管理+brand co-creation", tags:["品牌","共创"], status:"pending", statusText:"待写套磁", url:"", match:"品牌意义构建=Leon核心经验", papers:[] },
+    { name:"Sylvia von Wallpach", nameCn:"", school:"CBS", dept:"商学院", region:"eu", stars:4, direction:"品牌共创+品牌与社会价值观", tags:["品牌","共创","社会价值"], status:"pending", statusText:"待写套磁", url:"", match:"", papers:[] },
+    { name:"Jian Lin", nameCn:"", school:"CUHK", dept:"新闻与传播学院", region:"hk", stars:4, direction:"平台经济+创意劳动+数字文化", tags:["平台经济","创意劳动"], status:"pending", statusText:"走正式申请", url:"", match:"Leon=研究对象", papers:[] }
+];
+
+// === PAPERS DATA ===
+const shenPapers = [
+    { title:"The Rise of Chatbots: Effect of Using Chatbot Agents on Consumers' Responses to Request Rejection", author:"Yu, Xiong & Shen", year:2024, journal:"Journal of Consumer Psychology, 34(1), 35-48", url:"https://myscp.onlinelibrary.wiley.com/doi/abs/10.1002/jcpy.1330", note:"⭐ 第一优先级 — AI/Chatbot最新方向" },
+    { title:"Word of Mouth vs Word of Mouse: Speaking about a Brand Connects You to It More Than Writing Does", author:"Shen & Sengupta", year:2018, journal:"Journal of Consumer Research, 45(3), 595-614", url:"https://mark.hkust.edu.hk/files/staff/Jaideep/Jaideep-JCR-2018.pdf", note:"⭐ 第二优先级 — 传播方式影响品牌关系" },
+    { title:"Computer Interfaces and the 'Direct-Touch' Effect: Can iPads Increase the Choice of Hedonic Food?", author:"Shen, Zhang & Krishna", year:2016, journal:"Journal of Marketing Research, Oct, 745-758", url:"https://journals.sagepub.com/doi/abs/10.1509/jmr.14.0563", note:"界面→决策的关键转折论文" },
+    { title:"Does Using a Pink Product Increase Men's Support for Women?", author:"Qi & Shen", year:2025, journal:"Journal of Consumer Research", url:"https://academic.oup.com/jcr/advance-article-abstract/doi/10.1093/jcr/ucaf027/8120422", note:"产品使用→视角转换" },
+    { title:"So Difficult to Smile: Why Unhappy People Avoid Enjoyable Activities", author:"Shen, Labroo & Wyer", year:2020, journal:"JPSP, 119(1), 23-39", url:"https://pubmed.ncbi.nlm.nih.gov/32039616/", note:"情绪×行为回避" }
+];
+
+const theoryPapers = [
+    { title:"Blame the Bot: Anthropomorphism and Anger in Customer-Chatbot Interactions", author:"Crolic, Thomaz, Hadi & Stephen", year:2022, journal:"Journal of Marketing, 86(1), 132-148", url:"https://www.researchgate.net/publication/354180011", note:"沈浩chatbot论文是对此的补充/反驳" },
+    { title:"Consumers and AI: An Experiential Perspective", author:"Puntoni, Reczek, Giesler & Botti", year:2021, journal:"Journal of Marketing, 85(1), 131-151", url:"https://psycnet.apa.org/record/2020-96988-014", note:"AI+消费者的理论框架（四种张力）" },
+    { title:"Artificial Empathy in Marketing Interactions", author:"Liu-Thompkins, Okazaki & Li", year:2022, journal:"JAMS, 50(6), 1198-1218", url:"https://digitalcommons.odu.edu/cgi/viewcontent.cgi?article=1021&context=marketing_pubs", note:"给Okazaki套磁时引用的论文" },
+    { title:"Machines vs. Humans: The Impact of AI Chatbot Disclosure on Customer Purchases", author:"Luo, Tong, Fang & Qu", year:2019, journal:"Marketing Science, 38(6), 937-947", url:"https://www.researchgate.net/publication/335959930", note:"AI身份披露的经典实证" },
+    { title:"Machines and Mindlessness: Social Responses to Computers", author:"Nass & Moon", year:2000, journal:"Journal of Social Issues, 56(1), 81-103", url:"https://www.researchgate.net/publication/229068013", note:"CASA理论经典论文" },
+    { title:"You Are What They Eat: Reference Groups on Consumers' Connections to Brands", author:"Escalas & Bettman", year:2003, journal:"Journal of Consumer Psychology, 13(3), 339-348", url:"https://www.sciencedirect.com/science/article/abs/pii/S1057740803702424", note:"Self-brand connection原始论文" },
+    { title:"An Integrative Review of Sensory Marketing", author:"Krishna", year:2012, journal:"Journal of Consumer Psychology, 22(3), 332-351", url:"https://www.sciencedirect.com/science/article/abs/pii/S1057740811000830", note:"感官营销奠基综述" }
+];
+
+const otherPapers = [
+    { title:"Practical Relevance in Consumer Research", author:"Hoyer, Echo Wen Wan, Wilcox", year:2024, journal:"JCR, 51(2), 428-438", url:"https://academic.oup.com/jcr/article-abstract/51/2/428/7638831", note:"Echo Wan关心practical relevance — Leon的行业经验=来源" },
+    { title:"When Words Meet Visuals: How Content Composition Drives Social Media Engagement for Marketer-Generated Content", author:"Chu Dang, Man Ching Kwan, Jayson S. Jia, Yang Shi", year:2025, journal:"Journal of Marketing Research, 63(1), 167-190", url:"https://journals.sagepub.com/doi/10.1177/00222437251373042", note:"Jayson Jia — 品牌社媒内容研究，与Leon腾讯云经验对接" }
+];
+
+// === TIMELINE DATA ===
+const urgentTimeline = [
+    { date:"5/20", text:"Okazaki (KCL) 第一轮follow-up", urgent:true },
+    { date:"5/21", text:"Plangger (KCL) 第一轮follow-up", urgent:true },
+    { date:"5/25", text:"Tom McDonald (HKU) 第二轮follow-up", urgent:true }
+];
+
+const mainTimeline = [
+    { date:"6-7月", text:"雅思首考（目标7.0+）" },
+    { date:"6-7月", text:"墨尔本方向行动（Wonsun Shin等）" },
+    { date:"7月", text:"NUS 2027年1月入学截止" },
+    { date:"8月底", text:"墨尔本2027年2月入学申请截止" },
+    { date:"9月", text:"HKPFS开放申请 + CUHK商学院开放" },
+    { date:"11-12月", text:"NTU WKWSCI PhD申请" },
+    { date:"12/1", text:"HKPFS截止" },
+    { date:"12月", text:"港校/剑桥/LSE正式申请截止" }
+];
+
+// === RENDER FUNCTIONS ===
+function renderSupervisors(filter='all') {
+    const grid = document.getElementById('sup-grid');
+    const filtered = filter === 'all' ? supervisors : supervisors.filter(s => s.region === filter);
+    grid.innerHTML = filtered.map(s => `
+        <div class="sup-card">
+            <div class="sup-header">
+                <div>
+                    <div class="name">${s.name} ${s.nameCn ? `<span class="name-cn">(${s.nameCn})</span>` : ''}</div>
+                    <div class="school">${s.school} · ${s.dept}</div>
+                </div>
+                <div class="stars">${'⭐'.repeat(s.stars)}</div>
+            </div>
+            <div class="direction">${s.direction}</div>
+            <div class="tags">${s.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+            ${s.match ? `<div style="font-size:12px;color:var(--accent2);margin-bottom:8px;">💡 ${s.match}</div>` : ''}
+            <div style="font-size:12px;padding-top:8px;border-top:1px solid var(--border);color:var(--text-dim);">
+                <span class="status-badge ${s.status}">${s.statusText}</span>
+                ${s.url ? ` · <a href="${s.url}" target="_blank" style="color:var(--accent);font-size:12px;">主页↗</a>` : ''}
+            </div>
+            ${s.papers.length ? `<div class="papers-in-card">${s.papers.map(p => `<a href="${p.url}" target="_blank">📄 ${p.title} (${p.journal} ${p.year})</a>`).join('')}</div>` : ''}
+        </div>
+    `).join('');
+}
+
+function renderPapers(papers, containerId) {
+    document.getElementById(containerId).innerHTML = papers.map(p => `
+        <div class="paper-item">
+            <div class="paper-title"><a href="${p.url}" target="_blank">${p.title}</a></div>
+            <div class="paper-meta">${p.author} · ${p.journal} (${p.year})</div>
+            ${p.note ? `<div style="font-size:12px;color:var(--accent2);margin-top:4px;">→ ${p.note}</div>` : ''}
+        </div>
+    `).join('');
+}
+
+function renderTimeline(items, containerId) {
+    document.getElementById(containerId).innerHTML = items.map(t => `
+        <div class="timeline-item ${t.urgent ? 'urgent' : ''}">
+            <div class="timeline-date">${t.urgent ? '🔴 ' : ''}${t.date}</div>
+            <div class="timeline-content">${t.text}</div>
+        </div>
+    `).join('');
+}
+
+// === INIT ===
+function init() {
+    renderSupervisors();
+    renderPapers(shenPapers, 'shen-papers');
+    renderPapers(theoryPapers, 'theory-papers');
+    renderPapers(otherPapers, 'other-papers');
+    renderTimeline(urgentTimeline, 'urgent-timeline');
+    renderTimeline(mainTimeline, 'main-timeline');
+
+    // Tab switching
+    document.querySelectorAll('.nav-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+            document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            tab.classList.add('active');
+            document.getElementById(tab.dataset.tab).classList.add('active');
+        });
+    });
+    // Filter
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderSupervisors(btn.dataset.filter);
+        });
+    });
+}
+init();
+</script>
+</body>
+</html>
