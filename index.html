@@ -4,6 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Leon's PhD Hub</title>
+    <script>
+    (function(){
+        // Simple password gate (SHA-256 hash comparison)
+        const HASH = '178a831465dc6268b099c8b8fd914e9d97f4ad97e45ba7137f2650096acd2775';
+        const stored = sessionStorage.getItem('phd_auth');
+        if (stored === 'ok') return;
+        async function sha256(msg) {
+            const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(msg));
+            return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+        }
+        const pw = prompt('请输入访问密码：');
+        if (!pw) { document.documentElement.innerHTML='<body style="background:#000;color:#fff;padding:40px;">需要密码才能访问</body>'; return; }
+        sha256(pw).then(h => {
+            if (h === HASH) { sessionStorage.setItem('phd_auth','ok'); }
+            else { document.documentElement.innerHTML='<body style="background:#000;color:#fff;padding:40px;">密码错误</body>'; }
+        });
+    })();
+    </script>
     <style>
         :root {
             --bg: #0f0f0f;
