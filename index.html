@@ -4,24 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Leon's PhD Hub</title>
-    <script>
-    (function(){
-        // Simple password gate (SHA-256 hash comparison)
-        const HASH = '178a831465dc6268b099c8b8fd914e9d97f4ad97e45ba7137f2650096acd2775';
-        const stored = sessionStorage.getItem('phd_auth');
-        if (stored === 'ok') return;
-        async function sha256(msg) {
-            const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(msg));
-            return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+    <style>
+        #login-gate {
+            position: fixed; top:0; left:0; width:100%; height:100%;
+            background: #0f0f0f; display:flex; align-items:center; justify-content:center;
+            z-index: 99999; flex-direction: column; gap: 16px;
         }
-        const pw = prompt('请输入访问密码：');
-        if (!pw) { document.documentElement.innerHTML='<body style="background:#000;color:#fff;padding:40px;">需要密码才能访问</body>'; return; }
-        sha256(pw).then(h => {
-            if (h === HASH) { sessionStorage.setItem('phd_auth','ok'); }
-            else { document.documentElement.innerHTML='<body style="background:#000;color:#fff;padding:40px;">密码错误</body>'; }
-        });
-    })();
-    </script>
+        #login-gate.hidden { display: none; }
+        #login-gate h2 { color: #e0e0e0; font-family: -apple-system, sans-serif; font-size: 20px; }
+        #login-gate input {
+            padding: 12px 20px; border-radius: 8px; border: 1px solid #333;
+            background: #1a1a1a; color: #e0e0e0; font-size: 16px; width: 260px;
+            outline: none;
+        }
+        #login-gate input:focus { border-color: #4fc3f7; }
+        #login-gate button {
+            padding: 10px 24px; border-radius: 8px; border: none;
+            background: #4fc3f7; color: #000; font-size: 14px; font-weight: 600;
+            cursor: pointer;
+        }
+        #login-gate .error { color: #ef5350; font-size: 13px; display: none; }
+        #main-content { display: none; }
+        #main-content.visible { display: block; }
+    </style>
     <style>
         :root {
             --bg: #0f0f0f;
@@ -123,6 +128,13 @@
     </style>
 </head>
 <body>
+<div id="login-gate">
+    <h2>🎓 Leon's PhD Hub</h2>
+    <input type="password" id="pw-input" placeholder="请输入访问密码" onkeydown="if(event.key==='Enter')doLogin()">
+    <button onclick="doLogin()">Enter</button>
+    <div class="error" id="pw-error">密码错误，请重试</div>
+</div>
+<div id="main-content">
 <div class="container">
     <div class="header">
         <div>
@@ -614,7 +626,33 @@ function init() {
         });
     });
 }
-init();
+
+// Auth check on load
+const AUTH_HASH = '178a831465dc6268b099c8b8fd914e9d97f4ad97e45ba7137f2650096acd2775';
+async function sha256(msg) {
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(msg));
+    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+}
+function doLogin() {
+    const pw = document.getElementById('pw-input').value;
+    sha256(pw).then(h => {
+        if (h === AUTH_HASH) {
+            sessionStorage.setItem('phd_auth','ok');
+            document.getElementById('login-gate').classList.add('hidden');
+            document.getElementById('main-content').classList.add('visible');
+            init();
+        } else {
+            document.getElementById('pw-error').style.display = 'block';
+        }
+    });
+}
+// Auto-login if already authed this session
+if (sessionStorage.getItem('phd_auth') === 'ok') {
+    document.getElementById('login-gate').classList.add('hidden');
+    document.getElementById('main-content').classList.add('visible');
+    init();
+}
 </script>
+</div><!-- end main-content -->
 </body>
 </html>
