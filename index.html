@@ -677,6 +677,19 @@ const mainTimeline = [
 // === RENDER FUNCTIONS ===
 function renderSupervisors(filter='all') {
     const grid = document.getElementById('sup-grid');
+    const deadlineMap = {
+        'hk': '2026年12月1日 (HKPFS)',
+        'sg': '2026年7月 (NUS 2027入学) / 2026年11月 (NTU/SMU)',
+        'uk': '2026年12月-2027年1月',
+        'au': '2026年8-10月 (2027年2月入学)',
+        'eu': '按funded position公告',
+        'cn': '待确认'
+    };
+    const deadlineOverrides = {
+        'UCL': '2026年12月1日（全额资助5年）',
+        'UNSW': '2026年招生中（funded position）',
+        'CBS': '按funded position公告（丹麦）'
+    };
     const filtered = (filter === 'all' ? supervisors : supervisors.filter(s => s.region === filter)).sort((a,b) => b.stars - a.stars);
     grid.innerHTML = filtered.map(s => `
         <div class="sup-card">
@@ -693,6 +706,7 @@ function renderSupervisors(filter='all') {
             <div style="font-size:12px;padding-top:8px;border-top:1px solid var(--border);color:var(--text-dim);">
                 <span class="status-badge ${s.status}">${s.statusText}</span>
                 ${s.url ? ` · <a href="${s.url}" target="_blank" style="color:var(--accent);font-size:12px;">主页↗</a>` : ''}
+                ${(() => { const dl = deadlineOverrides[s.school] || deadlineMap[s.region]; return dl ? ` · <span style="color:var(--accent3);">DDL: ${dl}</span>` : ''; })()}
             </div>
             ${s.papers.length ? `<div class="papers-in-card">${s.papers.map(p => `<a href="${p.url}" target="_blank">📄 ${p.title} (${p.journal} ${p.year})</a>`).join('')}</div>` : ''}
         </div>
