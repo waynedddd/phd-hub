@@ -777,6 +777,155 @@ Okazaki不期望你现在就能设计完美实验——他是看你有没有**ba
 
 **注意：这只是示范结构和逻辑。你的真实proposal需要基于你的真实从业观察和充分的文献阅读来发展。这里的H1-H4是假想的——你需要阅读文献后确认它们是否有理论支撑。**
 
+## Part 6c: 第二篇论文拆解 — Luo et al. (2019) "Machines vs. Humans"
+
+**来源**：Luo, X., Tong, S., Fang, Z., & Qu, Z. (2019). *Marketing Science*, 38(6), 937-947.
+[论文PDF](https://www.fox.temple.edu/sites/fox/files/Frontiers-Machines-versus-Humans-The-Impact-of-Artificial-Intelligence-Chatbot-Disclosure-on-Customer-Purchases.pdf)
+
+**为什么拆这篇：** 它是AI disclosure领域最重要的实证研究之一，直接相关Leon的方向，而且是**田野实验**（不是lab experiment），展示了另一种research design。
+
+| 段落 | 功能 | 他们写了什么 | 你能学到什么 |
+|------|------|-------------|------------|
+| P1 | 现象+数据 | "AI chatbot市场预计2025年$1.25B...企业大规模部署" | 用行业数据建立relevance |
+| P2 | 核心问题 | "关键问题：当chatbot身份被揭露（disclosure），消费者如何反应？" | 直接陈述RQ，不绕弯 |
+| P3 | 已有研究不足 | "尽管chatbot widespread，学术研究极少，且缺乏field evidence" | 同时指出empirical gap + methodological gap |
+| P4 | 他们做了什么 | "我们提供了first field experiment evidence...6200+ customers" | 明确说贡献是什么 |
+| P5 | 关键发现预告 | "Disclosure使购买率下降79.7%...但trained chatbots可以恢复" | 给出hook——反直觉的数字 |
+
+**与Crolic (2022)的对比——两种不同策略：**
+
+| 维度 | Crolic 2022 | Luo 2019 |
+|------|-------------|----------|
+| 方法 | Lab experiments (5 studies) | Field experiment (1 large study) |
+| Gap来源 | 理论矛盾（anthropomorphism应该好但会backfire） | 知识缺失（没有field evidence） |
+| 贡献类型 | Boundary condition + mechanism | First empirical evidence |
+| 适合何时用 | 你有理论预测但需要验证 | 一个新现象还没被实证研究过 |
+
+**对Leon的关键启示：**
+你的proposal可以结合两者：用Luo式的"行业现象+缺乏学术证据"开场，然后转向Crolic式的"理论预测+boundary condition"深挖。
+
+---
+
+## Part 6d: 写作练习设计（Learning by Doing）
+
+**只读不写是学不会的。以下练习帮你把"知道"转化为"能做"。**
+
+### 练习1：Gap Statement仿写
+
+**步骤：**
+1. 找到Puntoni et al. (2021) 的conclusion section（[PDF链接](https://mii.ie/wp-content/uploads/2020/05/Consumers-and-Artificial-Intelligence.pdf)）
+2. 选一个他们提出的future research direction
+3. 用1.5节的句式模板，写一段100词的gap statement
+4. 自检：是否说清了(a)已有研究做了什么 (b)具体缺什么 (c)为什么这很重要？
+
+### 练习2：Hypothesis推导
+
+**步骤：**
+1. 选一个理论（PKM / CASA / Attribution Theory）
+2. 写出理论的核心预测（一句话）
+3. 写出在AI disclosure场景中的应用（一句话）
+4. 写出formal hypothesis："H1: [IV] will [方向] [DV] because [mechanism]"
+5. 写出一个boundary condition hypothesis："H2: The effect in H1 will be [stronger/weaker/reversed] when [moderator]"
+
+### 练习3：Introduction拆解
+
+**步骤：**
+1. 打开Crolic et al. (2022)的Introduction（[链接](https://journals.sagepub.com/doi/10.1177/00222429211045687)）
+2. 对每一段写一句话总结其功能（Hook? 综述? Gap? Contribution?）
+3. 画出逻辑流：P1→P2→P3→P4→P5，每个箭头写上"连接词/逻辑"
+4. 仿写：用同样的逻辑结构，填入你自己的内容
+
+### 练习4：Concept Map制作
+
+**步骤：**
+1. 读以下3篇论文的Abstract + Findings：
+   - Luo et al. (2019) [PDF](https://www.fox.temple.edu/sites/fox/files/Frontiers-Machines-versus-Humans-The-Impact-of-Artificial-Intelligence-Chatbot-Disclosure-on-Customer-Purchases.pdf)
+   - Crolic et al. (2022) [链接](https://journals.sagepub.com/doi/10.1177/00222429211045687)
+   - "The Transparency Dilemma" (2025) [链接](https://www.sciencedirect.com/science/article/pii/S0749597825000172)
+2. 提取每篇的：IV, DV, Mediator, Moderator, Key Finding
+3. 画在同一张图上
+4. 问自己：哪些关系互相矛盾？哪些变量出现在一篇但不在另一篇？
+5. 矛盾和缺失 = 你的potential gap
+
+### 练习5：Method Section快速仿写
+
+**步骤：**
+1. 打开Crolic et al. (2022)的Study 1 Method section
+2. 列出所有sub-headings（Participants, Procedure, Measures, etc.）
+3. 对每个sub-heading写一句话：如果是你的study，这里填什么？
+4. 这就是你proposal的Research Design的骨架
+
+---
+
+## Part 6e: 如何高效阅读学术论文（Three-Pass Method）
+
+**来源**：Keshav (2007) ["How to Read a Paper"](http://ccr.sigcomm.org/online/files/p83-keshavA.pdf) — 被引超4000次的经典方法
+
+### First Pass（5-10分钟）：鸟瞰
+
+**读什么：** Title → Abstract → Introduction最后一段（贡献） → Section headings → Conclusion first paragraph
+**目标：** 知道这篇论文(1)关于什么 (2)主要发现 (3)贡献是什么
+**决定：** 值不值得读第二遍？跟你的研究相关吗？
+
+### Second Pass（30-60分钟）：掌握内容
+
+**读什么：** 全文，但跳过数学公式和统计细节
+**重点看：**
+- 每个figure和table（它们是论文的骨架）
+- 每段的第一句话（通常是topic sentence）
+- Hypothesis是怎么推导出来的
+- 标记你不懂的术语/引用
+**目标：** 能用自己的话向别人解释这篇论文
+
+### Third Pass（2-4小时）：深度理解（只对最核心的2-3篇做）
+
+**做什么：**
+- 质疑每一个假设：为什么他们选这个理论？有没有别的解释？
+- 评价method：样本够大吗？manipulation成功吗？有没有confound？
+- 想象你是reviewer：你会提什么问题？
+- 想象这篇论文的Study 5（如果他们要继续）：下一步是什么？
+**目标：** 能在学术讨论中批判性地评价这篇论文
+
+### 对Leon的建议：
+
+| 论文类别 | 读到哪个pass | 数量 |
+|---------|------------|------|
+| 直接相关你RQ的论文 | Third Pass | 5-8篇 |
+| 同领域但不直接相关 | Second Pass | 10-15篇 |
+| 综述/框架论文 | Second Pass（重点读future research） | 3-5篇 |
+| 引用的引用 | First Pass | 按需 |
+
+---
+
+## Part 6f: 最新关键论文补充（2025年，直接相关你的方向）
+
+### "The Transparency Dilemma: How AI Disclosure Erodes Trust" (2025)
+
+**来源**：[ScienceDirect链接](https://www.sciencedirect.com/science/article/pii/S0749597825000172)；[University of Arizona报道](https://news.arizona.edu/news/disclosing-ai-use-can-backfire-research-shows)
+
+**核心发现：**
+- 13个实验一致证明：透露使用AI的人被信任度更低
+- 即使AI提高了产出质量，disclosure仍然降低信任
+- 机制：disclosure激活了"AI = less effort/less authentic"的推理
+
+**为什么对你极其重要：**
+1. 这是最新的、与你方向最直接相关的研究
+2. 它提供了clear main effect（disclosure → trust↓）
+3. 但它**没有**考察文化差异 / 市场环境差异 → **这正是你的gap可以切入的地方**
+4. 你可以在proposal里说："While [this paper] establishes that disclosure erodes trust across 13 experiments, all studies were conducted in Western contexts. We examine whether this effect holds in markets where AI disclosure norms have not yet developed."
+
+### Luo et al. (2019) — 另一个视角
+
+**核心发现：**
+- 田野实验：chatbot disclosure使购买率下降79.7%
+- 但经过training的chatbot可以部分恢复
+- 机制：disclosure → perceived lower competence + lower empathy
+
+**跟Transparency Dilemma (2025)的关系：**
+- 两篇都发现disclosure有负面效应
+- 但mechanism不同：Luo说是competence/empathy，2025那篇说是effort/authenticity
+- 这本身就是一个contradictory evidence gap → 什么时候是哪个mechanism主导？
+
 ## Part 7: 4周学习与执行路径
 
 ### 第1周（5/21-5/27）：打理论基础
@@ -864,6 +1013,56 @@ Okazaki不期望你现在就能设计完美实验——他是看你有没有**ba
    - 为什么读：用编辑的眼光审视你自己的写作
 
 ---
+
+## Part 8b: 如何写Expected Contributions（不是空话）
+
+**来源**：Proofed "How to Write Implications"; Academia SE "How to Phrase Contributions"; IJRM (2026) Editorial
+
+### 理论贡献的写法公式
+
+**不要写：** "This study contributes to the literature on AI marketing."（空话，等于没说）
+
+**要写（3层结构）：**
+
+> **第一层（对理论的推进）：**
+> "This research extends [Theory X] by identifying [new boundary condition / new mechanism / new application]. Specifically, we demonstrate that [Theory X's prediction] holds only when [condition], thereby refining the theory's scope."
+>
+> **第二层（对文献对话的推进）：**
+> "By reconciling the contradictory findings of [Author A (Year)] and [Author B (Year)], this study advances our understanding of when [effect] occurs versus when it does not."
+>
+> **第三层（对实践的启示）：**
+> "From a managerial perspective, our findings suggest that [specific actionable implication]. Rather than a one-size-fits-all approach to [X], managers should consider [condition] when making decisions about [Y]."
+
+### 实践意义（Managerial Implications）怎么写得不空
+
+| ❌ 空话 | ✅ 具体 |
+|--------|--------|
+| "对企业有重要启示" | "帮助跨国品牌制定差异化的AI disclosure策略：在欧洲市场主动disclosure，在中国市场则不必" |
+| "有助于改善营销实践" | "为品牌经理提供了一个决策框架：何时AI disclosure是资产（透明度信号）vs 负担（能力怀疑）" |
+| "对政策制定者有参考" | "为EU AI Act类立法的效果评估提供了实证基础：强制disclosure在不同文化中的效果可能截然不同" |
+
+## Part 8c: Proposal中的Timeline怎么写
+
+**你的timeline需要展示：(1)研究可以在3-4年内完成 (2)你有计划性**
+
+### KCL PhD时间线模板（4年制，含MPhil→PhD upgrade）
+
+| 阶段 | 时间 | 主要任务 |
+|------|------|---------|
+| Year 1 (MPhil) | Month 1-6 | 深入文献阅读 + 研究方法课程 + 细化RQ |
+| | Month 7-9 | 完善theoretical framework + 设计Study 1 |
+| | Month 10-12 | 执行Study 1 + 准备upgrade proposal |
+| Upgrade | ~Month 12 | 提交upgrade document + viva（口试） |
+| Year 2 (PhD) | Month 13-18 | Study 2 + Study 3 设计与执行 |
+| | Month 19-24 | 数据分析 + 写第一篇论文（target: conference） |
+| Year 3 | Month 25-30 | Study 4 (field study) + 写第二篇论文 |
+| | Month 31-36 | 整合所有studies + 撰写thesis章节 |
+| Year 4 | Month 37-42 | 论文撰写 + 修改 |
+| | Month 43-48 | 提交 + 答辩准备 |
+
+**在proposal中怎么写（50-100词即可）：**
+
+> "The proposed research is designed to be completed within four years. Year 1 will focus on comprehensive literature review, theoretical framework development, and Study 1 execution. Year 2 will involve Studies 2-3 and initial conference presentations. Year 3 will include the field study (Study 4) and journal submission. Year 4 will be devoted to thesis writing and defense preparation."
 
 ## Part 9: 自审Checklist（提交前逐条检查）
 
