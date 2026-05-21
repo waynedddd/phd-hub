@@ -430,6 +430,65 @@ Whetten (1989) AMR的经典定义——理论的4个building blocks：
 
 > **为什么？** 因为你不需要发现全新概念（那是大牛做的），但你可以用你的从业观察来识别一个被忽略的**调节变量**或**中介机制**。
 
+### 2.2b 构建理论论证（Theoretical Argument）的段落逻辑
+
+**这是proposal中最需要学术训练的部分——如何从理论推导到假设。**
+
+**来源**：7C Framework (Wiley 2024 *Psychology & Marketing*); USC LibGuide "Theoretical Framework"; Creswell (2018) Ch.3
+
+**一个好的理论论证段落遵循以下逻辑链：**
+
+```
+[理论原理] → [在当前场景的应用] → [逻辑推演] → [预测/假设]
+```
+
+**具体写法（逐句分析）：**
+
+> **句1（理论原理）：** "According to Persuasion Knowledge Model (Friestad & Wright, 1994), consumers who recognize a persuasion attempt activate coping mechanisms that reduce the effectiveness of the persuasion message."
+>
+> **句2（连接到你的场景）：** "In the context of AI-generated marketing content, disclosure labels (e.g., 'This content was created using AI') may serve as a trigger for persuasion knowledge activation, as they signal that the content was produced not by a human communicator but by an algorithm optimizing for persuasive impact."
+>
+> **句3（逻辑推演）：** "When consumers infer that AI was used specifically to persuade them more effectively, they are likely to perceive the brand as manipulative rather than transparent, thereby reducing their trust in the brand."
+>
+> **句4（正式假设）：** "Therefore, we predict: H1: AI content disclosure (vs. no disclosure) will decrease consumer brand trust."
+
+**关键连接词和它们的功能：**
+
+| 连接词 | 功能 | 何时用 |
+|--------|------|--------|
+| "According to [Theory]..." | 引入理论基础 | 每个H的开头 |
+| "In the context of [your domain]..." | 把抽象理论连接到具体场景 | 理论→应用 |
+| "This suggests that..." / "This implies that..." | 推演 | 从原理到预测 |
+| "Therefore, we predict:" / "Thus:" | 引出假设 | 直接在H之前 |
+| "However, this effect may be attenuated (weakened) when..." | 引入boundary condition | 导出moderation H |
+| "We further argue that this effect operates through..." | 引入机制 | 导出mediation H |
+
+**⚠️ 常见错误：**
+- ❌ 假设没有理论根据（"我觉得会这样"）
+- ❌ 理论和假设之间缺少逻辑链（直接从"PKM says X"跳到"H1: A→B"，没有解释为什么PKM适用于你的场景）
+- ❌ 用"previous research found"代替理论推导（实证发现≠理论论证）
+- ❌ 所有假设都用同一个理论推导（好的proposal通常整合2-3个互补理论）
+
+**进阶：如何推导Moderation Hypothesis**
+
+> **句1（回顾main effect的理论基础）：** "As argued above, AI disclosure activates persuasion knowledge, leading to decreased trust (H1)."
+>
+> **句2（引入调节变量的理论）：** "However, PKM further specifies that persuasion knowledge activation requires both *ability* and *motivation* to process the disclosure cue (Campbell & Kirmani, 2000)."
+>
+> **句3（解释为什么调节会发生）：** "In markets where AI usage in marketing is normalized and where no regulatory or social discourse has problematized AI content (e.g., China vs. EU), consumers may lack the cultural schema necessary to interpret AI disclosure as a persuasion cue, thereby failing to activate persuasion knowledge."
+>
+> **句4（假设）：** "H2: The negative effect of AI disclosure on trust (H1) is weaker in low-disclosure-awareness markets than in high-disclosure-awareness markets."
+
+**进阶：如何推导Mediation Hypothesis**
+
+> **句1（机制命名）：** "We propose that perceived manipulation mediates the effect of AI disclosure on trust."
+>
+> **句2（为什么是这个mediator）：** "Disclosure signals algorithmic involvement in content creation, which consumers may interpret as the brand prioritizing persuasive efficiency over authentic communication (Campbell, 1995)."
+>
+> **句3（完整路径）：** "Specifically, AI disclosure → heightened perception of manipulative intent → reduced trust."
+>
+> **句4（假设）：** "H3: Perceived manipulation mediates the negative relationship between AI disclosure and consumer trust."
+
 ### 2.3 如何在Proposal中表述Conceptual Contribution
 
 **公式：**
@@ -1063,6 +1122,36 @@ Okazaki不期望你现在就能设计完美实验——他是看你有没有**ba
 **在proposal中怎么写（50-100词即可）：**
 
 > "The proposed research is designed to be completed within four years. Year 1 will focus on comprehensive literature review, theoretical framework development, and Study 1 execution. Year 2 will involve Studies 2-3 and initial conference presentations. Year 3 will include the field study (Study 4) and journal submission. Year 4 will be devoted to thesis writing and defense preparation."
+
+## Part 8d: Reviewer Red Flags — 让你的Proposal被拒的10种方式
+
+**来源**：GradCoach "8 Common Mistakes"; LinkedIn Nacke (2025) "5 Common Proposal Mistakes"; Multiple reviewer testimonials; KCL/Oxford/Cambridge assessor criteria
+
+**如果审稿人/assessor看到以下任何一条，你的proposal直接进"弱"那一堆：**
+
+| # | Red Flag | 为什么致命 | 怎么避免 |
+|---|---------|-----------|---------|
+| 1 | **RQ在第2页才出现** | Reviewer耐心有限，前30秒看不到核心问题就失去兴趣 | 第一段末尾就要让人知道你要研究什么 |
+| 2 | **Gap = "没人做过"** | "No one has studied X"不是gap——也许没人做是因为不值得做 | 必须说清why it matters theoretically |
+| 3 | **文献综述像购物清单** | "A did X, B did Y, C did Z..."没有synthesis | 用concept-centric结构，围绕论点组织 |
+| 4 | **假设没有理论支撑** | "We hypothesize that X→Y"但不说based on what theory and why | 每个H前必须有theory→logic→prediction的链条 |
+| 5 | **方法跟问题不匹配** | 问"why/how"但用问卷（应该用实验或质性） | Method section开头先说"这个方法为什么适合这个RQ" |
+| 6 | **Overclaim** | "This study will revolutionize our understanding of..." | 用"aims to contribute"而非"will prove" |
+| 7 | **忽略alternative explanations** | 只有一个study验证一个效应 | 明确说"Study 2 rules out [alternative]" |
+| 8 | **References太少或太旧** | <10篇引用 or 多数>10年前 | 目标15-25篇，含至少5篇<3年内的 |
+| 9 | **写作不精确** | "may affect" "could impact" "might influence"满篇都是 | Hedging适度——关键预测要用definitive language |
+| 10 | **看不出跟导师的关系** | Proposal跟target导师的研究没有对话 | 必须引用导师至少1-2篇论文，说明你的工作如何extend他的 |
+
+**特别针对Okazaki的第11条：**
+
+| # | Red Flag | 说明 |
+|---|---------|------|
+| 11 | **Proposal看起来像行业报告** | Okazaki在回信中明确说"I assess research capability"——他不是在看你的行业insight有多厉害，是在看你能不能做学术研究 |
+
+**怎么确保你的proposal不踩雷：**
+- 写完后，找这10条，逐条检查
+- 对每一条自问："如果reviewer只看这个维度，我能过吗？"
+- 最后从头到尾读一遍，假装你是Okazaki——"这个人能完成博士论文吗？"
 
 ## Part 9: 自审Checklist（提交前逐条检查）
 
