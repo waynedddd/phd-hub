@@ -235,6 +235,173 @@ von Krogh, Rossi-Lamastra & Haefliger (2012) 在*Long Range Planning*中提出"P
 | 9 | **一篇文章一个核心贡献，不要贪多** | Proposal聚焦一个清晰的theoretical point |
 
 
+### 1.9 真实论文拆解：Crolic et al. (2022) "Blame the Bot" 的Introduction如何引出Gap
+
+**来源**：Crolic, C., Thomaz, F., Hadi, R., & Stephen, A.T. (2022). *Journal of Marketing*, 86(1), 132-148.
+[论文链接](https://journals.sagepub.com/doi/10.1177/00222429211045687)
+
+**拆解：他们的Introduction是怎么写的？**
+
+| 段落 | 功能 | 他们写了什么 | 你能学到什么 |
+|------|------|-------------|------------|
+| P1 | Hook + 现象 | "企业广泛采用chatbot...BUT customer satisfaction often drops" | 用真实商业现象开头（不是文献） |
+| P2 | 已有研究 | "Research on anthropomorphism suggests human-like features → positive..." | 综述已有文献的主流观点 |
+| P3 | 矛盾/Gap | "However, we propose conditions under which anthropomorphism BACKFIRES" | 挑战主流假设——"That's Interesting!" |
+| P4 | 机制 | "We argue this happens because anthropomorphism → higher blame attribution → anger" | 明确说出WHY（mechanism） |
+| P5 | Contribution | "We contribute by: (1) boundary condition of anthropomorphism, (2) anger as mechanism, (3) practical implications" | 清晰列出3条贡献 |
+
+**关键技巧：**
+- 他们不是说"nobody studied chatbot anger"（empirical gap）
+- 他们是说"current theory predicts anthropomorphism = good, but we show conditions where it = bad"（theoretical gap = boundary condition）
+- 他们的gap来自一个**反直觉的预测**——这正是Davis (1971) "That's Interesting"
+
+**对Leon的启示：**
+你的Introduction也应该是：现象（hook）→ 主流理论预测什么 → 但你观察到/预测了反直觉的东西 → 为什么（mechanism）→ 贡献
+
+### 1.10 从研究问题到假设的推导训练（Hypothesis Development）
+
+**这是proposal最核心的学术能力——也是目前指南最欠缺的。**
+
+**什么是Hypothesis Development？**
+
+假设不是你的"猜测"——它是从理论出发，经过逻辑推导，得出的可检验预测。
+
+**推导公式：**
+
+> **Step 1**: 理论说什么 → "根据[Theory X]，[A]会导致[B]，因为[mechanism]"
+> **Step 2**: 在你的场景下意味着什么 → "在AI marketing语境中，这意味着..."
+> **Step 3**: 形成预测 → "因此，我们预测：[具体可检验的预测]"
+> **Step 4**: 正式表述 → "H1: [IV]对[DV]有[正向/负向]影响"
+
+**真实示例（基于Leon可能的方向）：**
+
+> **理论基础**: Persuasion Knowledge Model (Friestad & Wright 1994) 认为，当消费者识别到说服意图时，会激活"应对机制"（coping mechanism），降低对信息的信任。
+> [论文链接](https://academic.oup.com/jcr/article-abstract/21/1/1/1853712)
+>
+> **在AI场景的应用**: AI disclosure（标注"此内容由AI生成"）可能激活消费者的persuasion knowledge，因为它暗示了非人类的、程序化的说服意图。
+>
+> **H1**: AI内容disclosure（vs 无disclosure）会降低消费者对品牌内容的信任。
+>
+> **但是——boundary condition来了：**
+>
+> **Leon的从业观察**: 在中国市场，消费者对AI内容似乎没有同样的抵触。
+>
+> **理论解释**: PKM的激活需要前提条件——消费者必须(1)有足够的说服知识 (2)有动机去使用这些知识。在中国市场，由于缺乏AI disclosure的社会运动和监管压力，消费者的AI-specific persuasion knowledge可能未被充分激活。
+>
+> **H2**: 上述负面效应（H1）在disclosure文化意识高的市场（如欧洲）比disclosure文化意识低的市场（如中国）更强。
+>
+> **进一步的mechanism**:
+>
+> **H3**: Perceived manipulation（感知到被操纵）中介了AI disclosure对信任的负面效应。
+
+**关键：每个假设都必须有"because"——理论根据。不是"我觉得会这样"，而是"理论预测会这样，因为[mechanism]"。**
+
+**来源**：Creswell (2018) Ch.3 "The Use of Theory"; Scribbr "How to Write a Strong Hypothesis"; PMC "Formulation of Research Question: Stepwise Approach"
+
+### 1.11 实验Manipulation设计的具体方法
+
+**来源**：Spilski et al. (2018) "Avoiding Pitfalls in Experimental Research in Marketing"; Aguinis & Bradley (2014) "Best Practices for Designing Vignettes"; [White Rose eprint](https://eprints.whiterose.ac.uk/id/eprint/177215/3/IMM_Manuscript_R3.pdf)
+
+**什么是Manipulation？**
+
+操纵（manipulation）= 你在实验中**系统地改变**自变量（IV）的水平，以观察它对因变量（DV）的影响。
+
+**AI Disclosure的manipulation示例：**
+
+| 条件 | 具体操纵 | 理由 |
+|------|---------|------|
+| Disclosure组 | 在品牌内容下方标注"⚡ This content was generated with AI assistance" | 模拟真实disclosure场景 |
+| No-disclosure组 | 相同内容，无任何标注 | 控制组 |
+| Human-created组（可选） | 标注"✍️ Written by our content team" | 区分disclosure vs human的独立效应 |
+
+**好的Manipulation需要满足：**
+
+1. **清晰区分条件**：两组之间的唯一区别是你操纵的变量
+2. **现实性（Mundane Realism）**：操纵要像真实世界中会发生的事
+3. **有效性**：通过manipulation check验证——"你觉得这个内容是AI生成的可能性有多大？"（7点量表）
+4. **排除confound**：确保不是因为操纵引入了别的变量（比如disclosure标签同时也让内容看起来更"官方"）
+
+**Vignette设计的要点：**
+
+给参与者一个场景描述（vignette），要求他们"想象自己是..."然后测量反应。
+
+好的vignette：
+- 信息量适中（100-200词）
+- 只改变target variable
+- 有足够context让人代入
+- 预测试（pilot test）确认清晰度
+
+**Manipulation Check怎么做：**
+在看完实验材料后，问参与者：
+- "In your opinion, to what extent was this content created by AI?" (1=definitely human, 7=definitely AI)
+- 如果两组在这个问题上没有显著差异 → 你的manipulation失败了
+
+### 1.12 Concept Map的具体操作步骤
+
+**来源**：University of Michigan Library "Literature Reviews: Concept Mapping"; ATLAS.ti Research Hub; Creswell (2018) Ch.2 "Literature Map"
+
+**Step-by-step操作：**
+
+**Step 1：准备材料**
+- 收集15-20篇最相关的论文
+- 工具：Miro / FigJam / 甚至一张A3纸
+
+**Step 2：提取变量**
+- 从每篇论文中提取：自变量(IV)、因变量(DV)、中介(M)、调节(W)
+- 列成表格：| 论文 | IV | DV | M | W | 发现 |
+
+**Step 3：画关系图**
+- 把所有变量写成节点
+- 用箭头连接已被验证的关系（标注正/负/ns）
+- 用虚线标出未被验证但理论上可能存在的关系
+
+**Step 4：找到Gap**
+- 看哪些连接是**虚线**（未被验证）→ 潜在RQ
+- 看哪些连接有**矛盾箭头**（不同研究结果不一致）→ boundary condition
+- 看哪些**节点**缺失（应该在但没人放进来的变量）→ 新的mediator/moderator
+
+**示例（AI Marketing领域）：**
+
+```
+[AI Disclosure] ──→ [Trust] ──→ [Purchase Intention]
+       ↓                ↑
+  [Perceived       [Brand
+  Manipulation]    Authenticity]
+       ↑                ↑
+  ???[Culture]???  ???[Product Type]???
+  
+已验证: AI Disclosure → Trust (✓ 多篇研究)
+矛盾: 有时正有时负 → WHY? → boundary condition = 你的gap
+缺失: Culture作为moderator → 没人做过 → 潜在贡献
+```
+
+### 1.13 "学术对话"的写作方法
+
+**来源**：Pat Thomson (2023) "Academic Writing as Conversation"; Raul Pacheco-Vega (2025) "Making Research Dialogue with Broader Literature"; Greene "Argument as Conversation"
+
+**什么是学术对话？**
+
+你的proposal不是在真空中写的——它是在加入一场进行中的**学术讨论**。你需要：
+1. 先听（读文献）
+2. 理解各方观点（综述）
+3. 找到你可以加入的点（gap）
+4. 说出你的观点（contribution）
+5. 用证据支持（method）
+
+**对话的语言模板：**
+
+| 你在做什么 | 句式 |
+|-----------|------|
+| 认可他人 | "Building on [Author]'s important insight that..." |
+| 指出局限 | "While this work has advanced our understanding of X, it leaves open the question of..." |
+| 提出你的角度 | "We extend this line of inquiry by examining..." |
+| 与多方对话 | "Whereas [Author A] emphasizes [X], [Author B] focuses on [Y]. We integrate both perspectives by..." |
+| 挑战假设 | "Contrary to the prevailing assumption that [X], we propose that under conditions of [Z]..." |
+| 回应future research call | "Responding to [Author]'s (Year) call for research on [topic], we investigate..." |
+
+**关键：你永远是在"与"现有研究对话，不是在"反对"它。即使你挑战了某个假设，也要尊重前人工作的贡献。**
+
+
 ## Part 2: Conceptual Contribution — 你的研究带来什么新的理论理解
 
 ### 2.1 什么是Conceptual Contribution？
