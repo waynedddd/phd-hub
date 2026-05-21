@@ -595,6 +595,46 @@ Okazaki不期望你现在就能设计完美实验——他是看你有没有**ba
 
 **来源**：KCL PhD Admission Guide ("It is understood that your project will evolve"); Oxford ("Evidence of understanding appropriate research skills" — 理解即可，不要求已掌握)
 
+### 4.4b 如何选择实验设计类型
+
+**来源**：Gneezy (2017) "Experimental Methods: Between and Within-Subject Design" [PDF](https://rady.ucsd.edu/_files/faculty-research/uri-gneezy/rest%20published.pdf); Scribbr "Between-Subjects Design"; NN/g "Between vs Within Subjects"
+
+| 设计 | 定义 | 何时用 | 优势 | 劣势 |
+|------|------|--------|------|------|
+| **Between-subjects** | 每个参与者只经历一个条件 | 条件之间可能互相影响时（如disclosure有/无） | 无carry-over effect | 需要更多参与者 |
+| **Within-subjects** | 每个参与者经历所有条件 | 个体差异可能掩盖效应时 | 需要更少参与者 | 有order effect |
+| **2×2 Factorial** | 同时操纵两个IV | 你要检验interaction（moderation） | 效率高，能看到交互效应 | 需要4组×每组80-100人=320-400人 |
+| **Mixed design** | 一个IV between, 一个IV within | 一个IV天然是within（如时间/多个刺激） | 兼顾两者优势 | 分析复杂 |
+
+**Leon的RQ最可能用的设计：**
+- Study 1: 2组 between-subjects（disclosure有 vs 无）
+- Study 2: 2×2 between-subjects（disclosure × mediator measurement）
+- Study 3: 2×2 between-subjects（disclosure × moderator如文化/情绪）
+
+### 4.4c 因变量（DV）的测量：从哪找Validated Scales
+
+**来源**：Bearden & Netemeyer *Handbook of Marketing Scales* (多卷); Bruner *Marketing Scales Handbook* Vol.7-10; [CSU Sacramento Marketing Scales Guide](https://csus.libguides.com/marketresearch/scales)
+
+**你不需要自己发明量表！** 去已有的validated scales里找：
+
+| 你想测量的DV | 常用量表 | 来源 |
+|-------------|---------|------|
+| Brand Trust | Chaudhuri & Holbrook (2001) 4-item scale | JM |
+| Purchase Intention | Dodds et al. (1991) 3-item scale | JMR |
+| Perceived Authenticity | Morhart et al. (2015) | JCR |
+| Attitude toward brand | Spears & Singh (2004) semantic differential | JCIRA |
+| Perceived Manipulation | Campbell (1995) 3-item scale | JCR |
+| AI Anxiety/Comfort | Luo et al. (2019) developed for AI context | JM |
+
+**在哪找量表：**
+1. **Marketing Scales Handbook**（Bruner系列）— 最全面的量表库
+2. **直接看相关论文的Method section** — 他们用了什么scale，你也用
+3. **PsychScales.com** — 新建的可搜索数据库
+4. **APA PsycTests** — 心理学量表的权威来源
+
+**写proposal时怎么表述：**
+> "Brand trust will be measured using Chaudhuri and Holbrook's (2001) four-item scale (α = .89 in original study). Purchase intention will be measured using Dodds et al.'s (1991) three-item scale adapted for the AI marketing context."
+
 ### 4.5 Empirical Strategy的写作模板
 
 > **研究将采用[X]个递进式在线实验进行：**
@@ -685,6 +725,57 @@ Okazaki不期望你现在就能设计完美实验——他是看你有没有**ba
 **来源**：Oxford DPhil evaluation criteria; Cambridge assessor criteria ("suitable for a PhD: intelligent, qualified, a self-starter, driven"); LSE ("identify a gap, articulate significance, create space for yourself")
 
 ---
+
+## Part 6b: 完整假想Proposal Outline（基于Leon的方向）
+
+**这不是你最终的proposal**——这是一个"如果写出来大概长这样"的示范，帮你理解各部分怎么串起来。
+
+---
+
+### Title
+"When Knowing It's AI Makes It Better: The Paradoxical Effect of AI Disclosure on Consumer Trust in Markets Without Regulatory Pressure"
+
+### 1. Introduction (~300词结构)
+
+**P1 (Hook)**: 全球AI生成营销内容爆发式增长 + 各国开始立法要求disclosure
+**P2 (已有理论)**: Persuasion Knowledge Model预测：disclosure → 激活说服知识 → 降低信任
+**P3 (矛盾/Gap)**: 但在中国等无disclosure压力的市场中，消费者对AI参与不仅不抵触，有时甚至更积极——这与PKM的预测矛盾
+**P4 (本研究)**: 本研究考察在什么条件下AI disclosure反而提升（而非降低）消费者信任，以及其心理机制
+
+### 2. Literature Review (~500词)
+
+**Level 1** (宽): AI in marketing — 规模、重要性（cite: Puntoni 2021; Okazaki 2025 JPPM）
+**Level 2** (理论):
+- PKM: disclosure → persuasion knowledge activation → resistance (Friestad & Wright 1994)
+- BUT: PKM假设消费者有动机+能力去使用persuasion knowledge
+- AI disclosure研究：结果矛盾——有时降低信任，有时不影响，偶尔提升
+**Level 3** (Gap): 现有研究忽略了一个关键边界条件：disclosure的文化/制度环境。在缺乏AI disclosure监管和社会运动的市场中，PKM的激活前提可能不满足。
+
+### 3. RQ & Hypotheses (~200词)
+
+**RQ**: Under what conditions does AI content disclosure increase (rather than decrease) consumer trust?
+
+**H1**: AI disclosure（vs无disclosure）在disclosure文化意识高的市场中降低消费者信任。
+**H2**: 在disclosure文化意识低的市场中，AI disclosure对信任的负面效应被消除甚至逆转。
+**H3**: Perceived transparency（而非perceived manipulation）中介了低awareness市场中disclosure的正面效应。
+**H4**: 消费者的个人AI literacy调节上述效应。
+
+### 4. Research Design (~400词)
+
+**Study 1** (N=200): 建立main effect — disclosure vs no disclosure → trust
+**Study 2** (N=400, 2×2): 检验文化调节 — disclosure × market context (high vs low awareness)
+**Study 3** (N=300): 检验mechanism — perceived transparency vs perceived manipulation as mediator
+**Study 4** (N=200, field study): 外部效度 — 真实品牌社媒帖子AB测试
+
+### 5. Expected Contributions (~200词)
+
+- 理论：扩展PKM到AI disclosure场景，识别了"文化awareness"作为PKM激活的boundary condition
+- 对Okazaki JPPM特刊的直接回应：AI disclosure is itself an interesting question
+- 实践：帮助跨国品牌制定差异化的AI disclosure策略
+
+---
+
+**注意：这只是示范结构和逻辑。你的真实proposal需要基于你的真实从业观察和充分的文献阅读来发展。这里的H1-H4是假想的——你需要阅读文献后确认它们是否有理论支撑。**
 
 ## Part 7: 4周学习与执行路径
 
